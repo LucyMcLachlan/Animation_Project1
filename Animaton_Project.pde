@@ -5,9 +5,24 @@
 
 //VARIABLES
 int bg1,bg2,bg3;
-int mg1,mg2,mg3,mg4,mg5,mg6;
+int mg1,mg2,mg3,mg4,mg5,mg6,mg7;
 int boat;
 int cloud1,cloud2,cloud3;
+int x,y;
+float a;
+float r;
+
+void boat(int x, int y, float angle){ 
+  pushMatrix();
+  translate(x,y);
+  rotate(radians(a));
+  noStroke();
+  fill(229,112,88);
+  arc(0,0,150,110,0,PI);
+  fill(232,246,250);
+  triangle(0,-120,90,-5,0,-5);
+  triangle(-4,-100,-4,-5,-50,-5);
+  popMatrix();}
 
 void setup(){
     size(800,600);
@@ -20,12 +35,14 @@ void setup(){
     mg4 = 470;
     mg5 = 620;
     mg6 = 770;
-    
+    mg7 = 920;
     boat = 100;
     
     cloud1 = 450;
     cloud2 = 250;
     cloud3 = -30;
+   
+    y = 460;
 }
 
 void draw(){
@@ -59,6 +76,7 @@ void draw(){
   ellipse(mg4,400,200,210);
   ellipse(mg5,400,200,210);
   ellipse(mg6,400,200,210);
+  ellipse(mg7,400,200,210);
     
   mg1 = mg1 + 4;
   mg2 = mg2 + 4;
@@ -66,6 +84,8 @@ void draw(){
   mg4 = mg4 + 4;
   mg5 = mg5 + 4;
   mg6 = mg6 + 4;
+  mg7 = mg7 + 4;
+  
     if(mg1>865){
     mg1 = -100;
     }
@@ -84,6 +104,9 @@ void draw(){
     if(mg6>865){
     mg6 = -100;
     }
+    if(mg7>865){
+    mg7 = -100;
+    }
     
   //ground
   
@@ -92,18 +115,22 @@ void draw(){
   
   //boat
   
-  fill(229,112,88);
-  arc(boat,470,150,110,0,PI);
+  boat(x,y,a);
+  x = x + 5;
   
-  fill(232,246,250);
-  triangle(boat,350,boat + 90,465,boat,465);
-  triangle(boat - 4,375,boat - 4,465,boat - 50,465);
-  
-  boat = boat + 5;
-    if(boat >905){
-    boat = -100;
+    if(x>=905){
+    x = -450;
+    a = 0;
+    r = 0; //resetts values after each pass
     }
-    
+  a = a + r;
+  if (a >= 20){
+    r = r * -1;
+  }
+  if(a <= -20){
+  r= r * -1;
+  }
+   r= r + 0.01;
   //cloud
   fill(210,237,245);
   ellipse(cloud1,75,45,30);
